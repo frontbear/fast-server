@@ -1,4 +1,4 @@
-### install docker
+### Install Docker
 ```bash
 sed -r -i -e "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 
@@ -25,9 +25,9 @@ apt-get -y install docker-ce
 docker run hello-world
 ```
 
-### usage
+### Basic Usage
 
-#### init image
+#### init
 - for production
 ```bash
 docker run \
@@ -35,7 +35,7 @@ docker run \
  -v /app7/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d frontbear/fastserver:1.0.0
+ -d frontbear/fastserver:1.0.1
 ```
 
 - for development
@@ -48,24 +48,11 @@ docker run \
  -p 3306:3306 \
  -p 6379:6379 \
  -p 9000:9000 \
- -d frontbear/fastserver:1.0.0
+ -d frontbear/fastserver:1.0.1
 ```
 
-- init mysql server
+- set new password for mysql
 ```bash
-chown -R app7:group7     /usr/local/mysql
-
-/usr/local/mysql/bin/mysqld --defaults-file=/etc/my.cnf             \
---initialize-insecure                                               \
---user=app7                                                         \
---basedir=/usr/local/mysql                                          \
---datadir=/usr/local/mysql/datadir
-
-/usr/local/mysql/support-files/mysql.server start
-
-chmod 777 /tmp/mysql.sock
-
-# set new password
 /usr/local/mysql/bin/mysqladmin -uroot password
 ```
 
@@ -84,6 +71,8 @@ update `user` set `Host` = '%' where `User` = 'root' and `Host` = 'localhost';
 flush privileges;
 ```
 
+### Useful Commands
+
 #### restart nginx
 ```bash
 docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
@@ -93,7 +82,7 @@ docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
 ```bash
 touch /usr/local/mysql/log_error_file.log
 chown -R app7:group7 /usr/local/mysql
-/usr/local/mysql/support-files/mysql.server start
+/usr/local/mysql/support-files/mysql.server start/restart
 ```
 
 #### enable mysql query log
