@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -euxo pipefail
+set -eux
+set -o pipefail
 
 chown -R app7:group7    /usr/local/nginx
 chown -R app7:group7    /usr/local/php
