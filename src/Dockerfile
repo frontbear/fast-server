@@ -3,7 +3,6 @@ FROM frontbear/baseimage:1.0.0
 MAINTAINER frontbear <frontbear@outlook.com>
 
 ENV NGINX_VERSION           1.13.8
-ENV OPENSSL_VERSION         1.0.2n
 ENV PCRE_VERSION            8.41
 ENV ZLIB_VERSION            1.2.11
 
@@ -52,11 +51,9 @@ RUN set -eux             \
 && cd /usr/local/src                                                     \
 
 && (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz >/dev/null)        \
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz >/dev/null)  \
 && (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz >/dev/null)           \
 && (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz >/dev/null)           \
 && (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null)                                  \
-&& (tar -zxf openssl-${OPENSSL_VERSION}.tar.gz >/dev/null)                              \
 && (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null)                                    \
 && (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null)                                    \
 
@@ -98,7 +95,6 @@ RUN set -eux             \
 --with-zlib=/usr/local/src/zlib-${ZLIB_VERSION}                     \
 --with-pcre=/usr/local/src/pcre-${PCRE_VERSION}                     \
 --with-pcre-jit                                                     \
---with-openssl=/usr/local/src/openssl-${OPENSSL_VERSION}            \
 --with-threads                                                      \
 --with-file-aio                                                     \
 --with-http_ssl_module                                              \
