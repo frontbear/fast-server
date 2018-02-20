@@ -36,8 +36,8 @@ ADD https://github.com/frontbear/fast-server/raw/master/src/redis/conf/redis.con
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux             \
 
-&& apt-get -y update                                                     \
-&& apt-get -y upgrade                                                    \
+&& (apt-get -y update >/dev/null)                                                     \
+&& (apt-get -y upgrade >/dev/null)                                                    \
 
 && CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                  \
 
@@ -51,31 +51,31 @@ RUN set -eux             \
 
 && cd /usr/local/src                                                     \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz        \
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
-&& (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null 2>&1)                                  \
-&& (tar -zxf openssl-${OPENSSL_VERSION}.tar.gz >/dev/null 2>&1)                              \
-&& (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null 2>&1)                                    \
-&& (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null 2>&1)                                    \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz >/dev/null)        \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz >/dev/null)  \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz >/dev/null)           \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz >/dev/null)           \
+&& (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null)                                  \
+&& (tar -zxf openssl-${OPENSSL_VERSION}.tar.gz >/dev/null)                              \
+&& (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null)                                    \
+&& (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null)                                    \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz    \
-&& (tar -zxf php-${PHP_VERSION}.tar.gz)                                                          \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz >/dev/null)    \
+&& (tar -zxf php-${PHP_VERSION}.tar.gz >/dev/null)                                                           \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
-&& (tar -zxf percona-server-${PERCONA_VERSION}.tar.gz >/dev/null 2>&1)                                   \
-&& (tar -zxf boost_${BOOST_VERSION}.tar.gz >/dev/null 2>&1)                                              \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz >/dev/null) \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz >/dev/null) \
+&& (tar -zxf percona-server-${PERCONA_VERSION}.tar.gz >/dev/null)                                   \
+&& (tar -zxf boost_${BOOST_VERSION}.tar.gz >/dev/null)                                              \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
-&& (tar -zxf redis-${REDIS_VERSION}.tar.gz >/dev/null 2>&1)                                              \
+&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz >/dev/null)  \
+&& (tar -zxf redis-${REDIS_VERSION}.tar.gz >/dev/null)                                              \
 
 
 
 
 && cd /usr/local/src/redis-${REDIS_VERSION}                                 \
-&& (make -j${CPU_NUM} >/dev/null)                                                        \
+&& (make >/dev/null)                                                        \
 && (make PREFIX=/usr/local/redis install >/dev/null)                                     \
 
 && mkdir /usr/local/redis/working_dir                                       \
@@ -92,7 +92,7 @@ RUN set -eux             \
 
 
 && cd /usr/local/src/nginx-${NGINX_VERSION}                         \
-&& ./configure --prefix=/usr/local/nginx                            \
+&& (./configure --prefix=/usr/local/nginx                            \
 --user=app7                                                         \
 --group=group7                                                      \
 --with-zlib=/usr/local/src/zlib-${ZLIB_VERSION}                     \
@@ -130,9 +130,9 @@ RUN set -eux             \
 --with-stream_geoip_module                                          \
 --with-stream_geoip_module=dynamic                                  \
 --with-stream_ssl_preread_module                                    \
---with-ld-opt="-ljemalloc"                                          \
+--with-ld-opt="-ljemalloc" >/dev/null)                                          \
 
-&& (make -j${CPU_NUM} >/dev/null)                                   \
+&& (make >/dev/null)                                   \
 && (make install >/dev/null)                                        \
 
 && mkdir /usr/local/nginx/vhosts_dir                                \
@@ -151,7 +151,7 @@ RUN set -eux             \
 
 
 && cd /usr/local/src/php-${PHP_VERSION}                             \
-&& ./configure --prefix=/usr/local/php                              \
+&& (./configure --prefix=/usr/local/php                              \
 --enable-fpm                                                        \
 --with-fpm-user=app7                                                \
 --with-fpm-group=group7                                             \
@@ -208,7 +208,7 @@ RUN set -eux             \
 --enable-sockets                                                    \
 --with-xsl                                                          \
 --enable-opcache                                                    \
---with-pear                                                         \
+--with-pear >/dev/null)                                                         \
 
 && (make -j${CPU_NUM} >/dev/null)                               \
 && (make install >/dev/null)                                    \
@@ -228,7 +228,7 @@ RUN set -eux             \
 
 
 && cd /usr/local/src/percona-server-${PERCONA_VERSION}              \
-&& cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql                    \
+&& (cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql                    \
 -DDEFAULT_CHARSET=utf8mb4                                           \
 -DDEFAULT_COLLATION=utf8mb4_unicode_ci                              \
 -DENABLED_LOCAL_INFILE=1                                            \
@@ -255,9 +255,9 @@ RUN set -eux             \
 -DWITH_PERFSCHEMA_STORAGE_ENGINE=1                                  \
 -DWITH_ROCKSDB=1                                                    \
 -DWITH_TOKUDB=1                                                     \
--DWITH_EXTRA_CHARSETS=all                                           \
+-DWITH_EXTRA_CHARSETS=all >/dev/null)                                           \
 
-&& make -j${CPU_NUM}                                            \
+&& (make -j${CPU_NUM} >/dev/null)                                            \
 && (make install >/dev/null)                                    \
 
 && mkdir /usr/local/mysql/datadir                                   \
