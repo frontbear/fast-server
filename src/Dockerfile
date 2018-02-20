@@ -1,4 +1,4 @@
-FROM frontbear/baseimage:1.0.0
+FROM frontbear/baseimage:16.4.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
