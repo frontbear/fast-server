@@ -35,7 +35,6 @@ ADD https://github.com/frontbear/fast-server/raw/master/src/redis/conf/redis.con
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux             \
-&& set -o pipefail          \
 
 && apt-get -y update                                                     \
 && apt-get -y upgrade                                                    \
