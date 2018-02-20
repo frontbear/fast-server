@@ -55,27 +55,28 @@ RUN set -eux             \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
-&& tar -zxf nginx-${NGINX_VERSION}.tar.gz                                  \
-&& tar -zxf openssl-${OPENSSL_VERSION}.tar.gz                              \
-&& tar -zxf pcre-${PCRE_VERSION}.tar.gz                                    \
-&& tar -zxf zlib-${ZLIB_VERSION}.tar.gz                                    \
+&& (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null 2>&1)                                  \
+&& (tar -zxf openssl-${OPENSSL_VERSION}.tar.gz >/dev/null 2>&1)                              \
+&& (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null 2>&1)                                    \
+&& (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null 2>&1)                                    \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz    \
-&& tar -zxf php-${PHP_VERSION}.tar.gz                                                          \
+&& (tar -zxf php-${PHP_VERSION}.tar.gz)                                                          \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
-&& tar -zxf percona-server-${PERCONA_VERSION}.tar.gz                                   \
-&& tar -zxf boost_${BOOST_VERSION}.tar.gz                                              \
+&& (tar -zxf percona-server-${PERCONA_VERSION}.tar.gz >/dev/null 2>&1)                                   \
+&& (tar -zxf boost_${BOOST_VERSION}.tar.gz >/dev/null 2>&1)                                              \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
-&& tar -zxf redis-${REDIS_VERSION}.tar.gz                                              \
+&& (tar -zxf redis-${REDIS_VERSION}.tar.gz >/dev/null 2>&1)                                              \
 
 
 
 
 && cd /usr/local/src/redis-${REDIS_VERSION}                                 \
-&& make -j${CPU_NUM} && make PREFIX=/usr/local/redis install                \
+&& (make -j${CPU_NUM} >/dev/null)                                                        \
+&& (make PREFIX=/usr/local/redis install >/dev/null)                                     \
 
 && mkdir /usr/local/redis/working_dir                                       \
 
@@ -131,7 +132,8 @@ RUN set -eux             \
 --with-stream_ssl_preread_module                                    \
 --with-ld-opt="-ljemalloc"                                          \
 
-&& make -j${CPU_NUM} && make install                                \
+&& (make -j${CPU_NUM} >/dev/null)                                   \
+&& (make install >/dev/null)                                        \
 
 && mkdir /usr/local/nginx/vhosts_dir                                \
 
@@ -208,7 +210,8 @@ RUN set -eux             \
 --enable-opcache                                                    \
 --with-pear                                                         \
 
-&& make -j${CPU_NUM} && make install                                \
+&& (make -j${CPU_NUM} >/dev/null)                               \
+&& (make install >/dev/null)                                    \
 
 && cd /usr/local/src                                                    \
 && yes | cp ./php_php-fpm.conf /usr/local/php/etc/php-fpm.conf          \
@@ -254,7 +257,8 @@ RUN set -eux             \
 -DWITH_TOKUDB=1                                                     \
 -DWITH_EXTRA_CHARSETS=all                                           \
 
-&& make -j${CPU_NUM} && make install                                \
+&& make -j${CPU_NUM}                                            \
+&& (make install >/dev/null)                                    \
 
 && mkdir /usr/local/mysql/datadir                                   \
 && mkdir /usr/local/mysql/tmpdir                                    \
