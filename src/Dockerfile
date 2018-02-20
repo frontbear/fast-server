@@ -50,22 +50,22 @@ RUN set -eux             \
 
 && cd /usr/local/src                                                     \
 
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz >/dev/null)        \
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz >/dev/null)           \
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz >/dev/null)           \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz        \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
 && (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null)                                  \
 && (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null)                                    \
 && (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null)                                    \
 
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz >/dev/null)    \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz    \
 && (tar -zxf php-${PHP_VERSION}.tar.gz >/dev/null)                                                           \
 
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz >/dev/null) \
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz >/dev/null) \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
 && (tar -zxf percona-server-${PERCONA_VERSION}.tar.gz >/dev/null)                                   \
 && (tar -zxf boost_${BOOST_VERSION}.tar.gz >/dev/null)                                              \
 
-&& (wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz >/dev/null)  \
+&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz  \
 && (tar -zxf redis-${REDIS_VERSION}.tar.gz >/dev/null)                                              \
 
 
