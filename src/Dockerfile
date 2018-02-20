@@ -55,21 +55,21 @@ RUN set -eux             \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
-&& tar -zxvf nginx-${NGINX_VERSION}.tar.gz                                  \
-&& tar -zxvf openssl-${OPENSSL_VERSION}.tar.gz                              \
-&& tar -zxvf pcre-${PCRE_VERSION}.tar.gz                                    \
-&& tar -zxvf zlib-${ZLIB_VERSION}.tar.gz                                    \
+&& tar -zxf nginx-${NGINX_VERSION}.tar.gz                                  \
+&& tar -zxf openssl-${OPENSSL_VERSION}.tar.gz                              \
+&& tar -zxf pcre-${PCRE_VERSION}.tar.gz                                    \
+&& tar -zxf zlib-${ZLIB_VERSION}.tar.gz                                    \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz    \
-&& tar -zxvf php-${PHP_VERSION}.tar.gz                                                          \
+&& tar -zxf php-${PHP_VERSION}.tar.gz                                                          \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
-&& tar -zxvf percona-server-${PERCONA_VERSION}.tar.gz                                   \
-&& tar -zxvf boost_${BOOST_VERSION}.tar.gz                                              \
+&& tar -zxf percona-server-${PERCONA_VERSION}.tar.gz                                   \
+&& tar -zxf boost_${BOOST_VERSION}.tar.gz                                              \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
-&& tar -zxvf redis-${REDIS_VERSION}.tar.gz                                              \
+&& tar -zxf redis-${REDIS_VERSION}.tar.gz                                              \
 
 
 
