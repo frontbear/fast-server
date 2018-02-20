@@ -47,7 +47,7 @@ RUN set -euxo pipefail                                                   \
 && mkdir -p /etc/my_init.d                                                          \
 && cd       /etc/my_init.d                                                          \
 && wget https://github.com/frontbear/fast-server/raw/master/src/server_start.sh     \
-&& chmod +x /etc/my_init.d/server_start.sh
+&& chmod +x /etc/my_init.d/server_start.sh                                          \
 
 && cd /usr/local/src                                                     \
 
