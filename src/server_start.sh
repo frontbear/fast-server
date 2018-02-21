@@ -2,10 +2,10 @@
 
 set -eux
 
-chown -R app7:group7    /usr/local/nginx
-chown -R app7:group7    /usr/local/php
-chown -R app7:group7    /usr/local/mysql
-chown -R app7:group7    /usr/local/redis
+chown -R user7:group7    /usr/local/nginx
+chown -R user7:group7    /usr/local/php
+chown -R user7:group7    /usr/local/mysql
+chown -R user7:group7    /usr/local/redis
 
 # init mysql
 if [ -z "$(ls -A /usr/local/mysql/datadir)" ]; then

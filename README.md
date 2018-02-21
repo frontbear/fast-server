@@ -81,7 +81,7 @@ docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
 #### restart mysql
 ```bash
 touch /usr/local/mysql/log_error_file.log
-chown -R app7:group7 /usr/local/mysql
+chown -R user7:group7 /usr/local/mysql
 /usr/local/mysql/support-files/mysql.server start/restart
 ```
 

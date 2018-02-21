@@ -41,7 +41,7 @@ RUN set -eux             \
 && CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                  \
 
 && groupadd group7                                                       \
-&& useradd -g group7 -M -d /usr/local/nginx app7 -s /sbin/nologin        \
+&& useradd -g group7 -M -d /usr/local/nginx user7 -s /sbin/nologin        \
 
 && mkdir -p /etc/my_init.d                                                          \
 && cd       /etc/my_init.d                                                          \
@@ -80,7 +80,7 @@ RUN set -eux             \
 && cd /usr/local/src                                                        \
 && yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf     \
 
-&& chown -R app7:group7                 /usr/local/redis                    \
+&& chown -R user7:group7                 /usr/local/redis                    \
 && /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
 && sleep  3s                                                                \
 && /usr/local/redis/bin/redis-cli       shutdown                            \
@@ -90,7 +90,7 @@ RUN set -eux             \
 
 && cd /usr/local/src/nginx-${NGINX_VERSION}                         \
 && (./configure --prefix=/usr/local/nginx                            \
---user=app7                                                         \
+--user=user7                                                         \
 --group=group7                                                      \
 --with-zlib=/usr/local/src/zlib-${ZLIB_VERSION}                     \
 --with-pcre=/usr/local/src/pcre-${PCRE_VERSION}                     \
@@ -136,7 +136,7 @@ RUN set -eux             \
 && cd /usr/local/src                                                \
 && yes | cp ./nginx_nginx.conf  /usr/local/nginx/conf/nginx.conf    \
 
-&& chown -R app7:group7            /usr/local/nginx                 \
+&& chown -R user7:group7            /usr/local/nginx                 \
 && /usr/local/nginx/sbin/nginx -t                                   \
 && /usr/local/nginx/sbin/nginx                                      \
 && sleep  3s                                                        \
@@ -149,7 +149,7 @@ RUN set -eux             \
 && cd /usr/local/src/php-${PHP_VERSION}                             \
 && (./configure --prefix=/usr/local/php                              \
 --enable-fpm                                                        \
---with-fpm-user=app7                                                \
+--with-fpm-user=user7                                                \
 --with-fpm-group=group7                                             \
 --disable-short-tags                                                \
 --with-openssl                                                      \
@@ -214,7 +214,7 @@ RUN set -eux             \
 && yes | cp ./php_www.conf     /usr/local/php/etc/php-fpm.d/www.conf    \
 && yes | cp ./php_php.ini      /usr/local/php/lib/php.ini               \
 
-&& chown -R app7:group7        /usr/local/php                       \
+&& chown -R user7:group7        /usr/local/php                       \
 && /usr/local/php/sbin/php-fpm                                      \
 && sleep  3s                                                        \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid`               \
@@ -259,8 +259,8 @@ RUN set -eux             \
 && mkdir /usr/local/mysql/datadir                                   \
 && mkdir /usr/local/mysql/tmpdir                                    \
 
-&& chown -R app7:group7 /usr/local/mysql                            \
-&& chown -R app7:group7 /etc/my.cnf                                 \
+&& chown -R user7:group7 /usr/local/mysql                            \
+&& chown -R user7:group7 /etc/my.cnf                                 \
 
 && rm -rf                       /usr/local/mysql/mysql-test         \
 

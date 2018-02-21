@@ -2,7 +2,7 @@
 
 $configs = [
     'mysqld'      => [
-        'user'                            => 'app7',
+        'user'                            => 'user7',
         'basedir'                         => "/usr/local/mysql/",
         'bind-address'                    => '127.0.0.1',
         'binlog-cache-size'               => '1M',// 默认为32k，如果事务多则可提升为2M
