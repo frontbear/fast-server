@@ -35,20 +35,42 @@ docker run \
  -v /app7/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d frontbear/fastserver:1.0.1
+ -d frontbear/fastserver:1.0.5
 ```
 
 - for development
 ```bash
+# Linux
 docker run \
  -v /app7/nginx/vhosts:/usr/local/nginx/vhosts:rw \
+ -v /app7/php/logdir:/usr/local/php/logdir:rw \
+ -v /app7/php/cfgdir:/usr/local/php/cfgdir:rw \
+ -v /app7/redis/datadir:/usr/local/redis/datadir:rw \
+ -v /app7/redis/logdir:/usr/local/redis/logdir:rw   \
  -v /app7/mysql/datadir:/usr/local/mysql/datadir:rw \
+ -v /app7/mysql/logdir:/usr/local/mysql/logdir:rw \
  -p 80:80 \
  -p 443:443 \
  -p 3306:3306 \
  -p 6379:6379 \
  -p 9000:9000 \
- -d frontbear/fastserver:1.0.1
+ -d frontbear/fastserver:1.0.5
+
+# Windows
+docker run \
+ -v d:/app7/nginx/vhosts:/usr/local/nginx/vhosts:rw \
+ -v d:/app7/php/logdir:/usr/local/php/logdir:rw \
+ -v d:/app7/php/cfgdir:/usr/local/php/cfgdir:rw \
+ -v d:/app7/redis/datadir:/usr/local/redis/datadir:rw \
+ -v d:/app7/redis/logdir:/usr/local/redis/logdir:rw   \
+ -v d:/app7/mysql/datadir:/usr/local/mysql/datadir:rw \
+ -v d:/app7/mysql/logdir:/usr/local/mysql/logdir:rw \
+ -p 80:80 \
+ -p 443:443 \
+ -p 3306:3306 \
+ -p 6379:6379 \
+ -p 9000:9000 \
+ -d frontbear/fastserver:1.0.5
 ```
 
 - set new password for mysql
@@ -58,12 +80,13 @@ docker run \
 
 - for development
 ```bash
-sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /usr/local/redis/conf_file.conf
-/usr/local/redis/bin/redis-cli shutdown
-/usr/local/redis/bin/redis-server /usr/local/redis/conf_file.conf
+sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /usr/local/redis/conf_file.conf \
+&& /usr/local/redis/bin/redis-cli shutdown \
+&& sleep 1s \
+&& /usr/local/redis/bin/redis-server /usr/local/redis/conf_file.conf
 
-sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /etc/my.cnf
-/usr/local/mysql/support-files/mysql.server restart
+sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /etc/my.cnf \
+&& /usr/local/mysql/support-files/mysql.server restart
 
 /usr/local/mysql/bin/mysql -uroot -p
 use mysql;
