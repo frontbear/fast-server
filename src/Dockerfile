@@ -15,21 +15,22 @@ ENV BOOST_NORMAL_VERSION    1.59.0
 
 ENV REDIS_VERSION           3.2.11
 
+ENV REPO_BRANCH https://github.com/frontbear/fast-server/raw/master
 
-ADD https://github.com/frontbear/fast-server/raw/master/src/mysql/conf/generated.my.cnf \
+ADD ${REPO_BRANCH}/src/mysql/conf/generated.my.cnf \
 /etc/my.cnf
 
-ADD https://github.com/frontbear/fast-server/raw/master/src/nginx/conf/nginx.conf \
+ADD ${REPO_BRANCH}/src/nginx/conf/nginx.conf \
 /usr/local/src/nginx_nginx.conf
 
-ADD https://github.com/frontbear/fast-server/raw/master/src/php/conf/php-fpm.conf \
+ADD ${REPO_BRANCH}/src/php/conf/php-fpm.conf \
 /usr/local/src/php_php-fpm.conf
-ADD https://github.com/frontbear/fast-server/raw/master/src/php/conf/www.conf \
+ADD ${REPO_BRANCH}/src/php/conf/www.conf \
 /usr/local/src/php_www.conf
-ADD https://github.com/frontbear/fast-server/raw/master/src/php/conf/php.ini \
+ADD ${REPO_BRANCH}/src/php/conf/php.ini \
 /usr/local/src/php_php.ini
 
-ADD https://github.com/frontbear/fast-server/raw/master/src/redis/conf/redis.conf \
+ADD ${REPO_BRANCH}/src/redis/conf/redis.conf \
 /usr/local/src/redis_redis.conf
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
@@ -45,7 +46,7 @@ RUN set -eux             \
 
 && mkdir -p /etc/my_init.d                                                          \
 && cd       /etc/my_init.d                                                          \
-&& wget https://github.com/frontbear/fast-server/raw/master/src/server_start.sh     \
+&& wget ${REPO_BRANCH}/src/server_start.sh     \
 && chmod +x /etc/my_init.d/server_start.sh                                          \
 
 && cd /usr/local/src                                                     \
