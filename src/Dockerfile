@@ -210,9 +210,12 @@ RUN set -eux \
 && (make -j${CPU_NUM} >/dev/null) \
 && (make install >/dev/null) \
 \
+&& mkdir /usr/local/php/logdir \
+&& mkdir -p /usr/local/php/cfgdir/php-fpm.d \
+\
 && cd /usr/local/src \
 && yes | cp ./php_php-fpm.conf /usr/local/php/etc/php-fpm.conf \
-&& yes | cp ./php_www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
+&& yes | cp ./php_www.conf     /usr/local/php/cfgdir/php-fpm.d/www.conf \
 && yes | cp ./php_php.ini      /usr/local/php/lib/php.ini \
 \
 && chown -R user7:group7        /usr/local/php \
