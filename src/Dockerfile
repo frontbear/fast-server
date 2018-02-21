@@ -261,6 +261,7 @@ RUN set -eux \
 && (make install >/dev/null) \
 \
 && mkdir /usr/local/mysql/datadir \
+&& mkdir /usr/local/mysql/logdir \
 && mkdir /usr/local/mysql/tmpdir \
 \
 && chown -R user7:group7 /usr/local/mysql \

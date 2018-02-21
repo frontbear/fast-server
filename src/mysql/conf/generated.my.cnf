@@ -1,4 +1,4 @@
-# Created At 2018-02-20 11:51:54
+# Created At 2018-02-21 22:56:53
 
 [mysqld]
 user                                 = user7
@@ -16,7 +16,7 @@ default-tmp-storage-engine           = InnoDB
 expire-logs-days                     = 14
 explicit-defaults-for-timestamp      = 1
 general-log                          = 0
-general-log-file                     = /usr/local/mysql/general_log_file.log
+general-log-file                     = /usr/local/mysql/logdir/general.log
 gtid-mode                            = OFF
 innodb-buffer-pool-size              = 768M
 innodb-data-file-path                = ibdata1:16M:autoextend
@@ -35,7 +35,7 @@ innodb-write-io-threads              = 4
 key-buffer-size                      = 16M
 local-infile                         = 1
 log-bin                              = /usr/local/mysql/log_bin_file
-log-error                            = /usr/local/mysql/log_error_file.log
+log-error                            = /usr/local/mysql/logdir/error.log
 log-output                           = FILE
 log-queries-not-using-indexes        = 0
 log-timestamps                       = SYSTEM
@@ -53,7 +53,7 @@ read-rnd-buffer-size                 = 2M
 server-id                            = 3306901
 skip-name-resolve                    = 1
 slow-query-log                       = 1
-slow-query-log-file                  = /usr/local/mysql/slow_query_log_file.log
+slow-query-log-file                  = /usr/local/mysql/logdir/slow.log
 socket                               = /tmp/mysql.sock
 sort-buffer-size                     = 1M
 sql-mode                             = ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO
