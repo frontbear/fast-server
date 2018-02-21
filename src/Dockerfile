@@ -19,21 +19,16 @@ ENV REPO_BRANCH https://github.com/frontbear/fast-server/raw/master
 
 ENV ASSETS_URL https://docker-assets.oss-cn-shanghai.aliyuncs.com/src
 
-ADD ${REPO_BRANCH}/src/mysql/conf/generated.my.cnf \
-/etc/my.cnf
 
-ADD ${REPO_BRANCH}/src/nginx/conf/nginx.conf \
-/usr/local/src/nginx_nginx.conf
+ADD ${REPO_BRANCH}/src/mysql/conf/generated.my.cnf /etc/my.cnf
 
-ADD ${REPO_BRANCH}/src/php/conf/php-fpm.conf \
-/usr/local/src/php_php-fpm.conf
-ADD ${REPO_BRANCH}/src/php/conf/www.conf \
-/usr/local/src/php_www.conf
-ADD ${REPO_BRANCH}/src/php/conf/php.ini \
-/usr/local/src/php_php.ini
+ADD ${REPO_BRANCH}/src/nginx/conf/nginx.conf /usr/local/src/nginx_nginx.conf
 
-ADD ${REPO_BRANCH}/src/redis/conf/redis.conf \
-/usr/local/src/redis_redis.conf
+ADD ${REPO_BRANCH}/src/php/conf/php-fpm.conf /usr/local/src/php_php-fpm.conf
+ADD ${REPO_BRANCH}/src/php/conf/www.conf /usr/local/src/php_www.conf
+ADD ${REPO_BRANCH}/src/php/conf/php.ini /usr/local/src/php_php.ini
+
+ADD ${REPO_BRANCH}/src/redis/conf/redis.conf /usr/local/src/redis_redis.conf
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -83,7 +78,7 @@ RUN set -eux \
 && cd /usr/local/src \
 && yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf \
 \
-&& chown -R user7:group7                 /usr/local/redis \
+&& chown -R user7:group7                /usr/local/redis \
 && /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf \
 && sleep  3s \
 && /usr/local/redis/bin/redis-cli       shutdown \
@@ -265,7 +260,7 @@ RUN set -eux \
 && chown -R user7:group7 /usr/local/mysql \
 && chown -R user7:group7 /etc/my.cnf \
 \
-&& rm -rf                       /usr/local/mysql/mysql-test \
+&& rm -rf /usr/local/mysql/mysql-test \
 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
