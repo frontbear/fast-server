@@ -17,6 +17,8 @@ ENV REDIS_VERSION           3.2.11
 
 ENV REPO_BRANCH https://github.com/frontbear/fast-server/raw/master
 
+ENV ASSETS_URL https://docker-assets.oss-cn-shanghai.aliyuncs.com/src
+
 ADD ${REPO_BRANCH}/src/mysql/conf/generated.my.cnf \
 /etc/my.cnf
 
@@ -51,22 +53,22 @@ RUN set -eux \
 \
 && cd /usr/local/src \
 \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/nginx/nginx-${NGINX_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/pcre/pcre-${PCRE_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/zlib/zlib-${ZLIB_VERSION}.tar.gz \
 && (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null) \
 && (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null) \
 && (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null) \
 \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/php/php-${PHP_VERSION}.tar.gz \
 && (tar -zxf php-${PHP_VERSION}.tar.gz >/dev/null) \
 \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/percona/percona-server-${PERCONA_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/boost/boost_${BOOST_VERSION}.tar.gz \
 && (tar -zxf percona-server-${PERCONA_VERSION}.tar.gz >/dev/null) \
 && (tar -zxf boost_${BOOST_VERSION}.tar.gz >/dev/null) \
 \
-&& wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
+&& wget -q ${ASSETS_URL}/redis/redis-${REDIS_VERSION}.tar.gz \
 && (tar -zxf redis-${REDIS_VERSION}.tar.gz >/dev/null) \
 \
 \
