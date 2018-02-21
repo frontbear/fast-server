@@ -35,7 +35,7 @@ docker run \
  -v /app7/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d frontbear/fastserver:1.0.5
+ -d frontbear/fastserver:1.1.0
 ```
 
 - for development
@@ -54,7 +54,7 @@ docker run \
  -p 3306:3306 \
  -p 6379:6379 \
  -p 9000:9000 \
- -d frontbear/fastserver:1.0.5
+ -d frontbear/fastserver:1.1.0
 
 # Windows
 docker run \
@@ -70,7 +70,7 @@ docker run \
  -p 3306:3306 \
  -p 6379:6379 \
  -p 9000:9000 \
- -d frontbear/fastserver:1.0.5
+ -d frontbear/fastserver:1.1.0
 ```
 
 - set new password for mysql
