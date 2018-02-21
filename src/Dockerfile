@@ -2,7 +2,7 @@ FROM frontbear/baseimage:16.4.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
-ENV NGINX_VERSION           1.13.8
+ENV NGINX_VERSION           1.13.9
 ENV PCRE_VERSION            8.41
 ENV ZLIB_VERSION            1.2.11
 
