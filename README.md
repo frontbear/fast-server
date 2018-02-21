@@ -31,7 +31,7 @@ docker run hello-world
 - for production
 ```bash
 docker run \
- -v /app7/nginx/vhosts_dir:/usr/local/nginx/vhosts_dir:rw \
+ -v /app7/nginx/vhosts:/usr/local/nginx/vhosts:rw \
  -v /app7/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
@@ -41,7 +41,7 @@ docker run \
 - for development
 ```bash
 docker run \
- -v /app7/nginx/vhosts_dir:/usr/local/nginx/vhosts_dir:rw \
+ -v /app7/nginx/vhosts:/usr/local/nginx/vhosts:rw \
  -v /app7/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
@@ -89,7 +89,7 @@ chown -R app7:group7 /usr/local/mysql
 ```bash
 SET global log_output = 'file';
 SET global general_log = 1;
-SET global general_log_file = '/usr/local/nginx/vhosts_dir/PATH/query.log';
+SET global general_log_file = '/usr/local/nginx/vhosts/PATH/query.log';
 ```
 
 ### REFERENCE

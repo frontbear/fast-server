@@ -131,7 +131,7 @@ RUN set -eux             \
 && (make >/dev/null)                                   \
 && (make install >/dev/null)                                        \
 
-&& mkdir /usr/local/nginx/vhosts_dir                                \
+&& mkdir /usr/local/nginx/vhosts                                \
 
 && cd /usr/local/src                                                \
 && yes | cp ./nginx_nginx.conf  /usr/local/nginx/conf/nginx.conf    \
