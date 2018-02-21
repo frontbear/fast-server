@@ -131,6 +131,7 @@ RUN set -eux \
 \
 && mkdir -p /usr/local/nginx/vhosts/cfg \
 && mkdir -p /usr/local/nginx/vhosts/logs \
+&& mkdir -p /usr/local/nginx/vhosts/certbot \
 \
 && cd /usr/local/src \
 && yes | cp ./nginx_nginx.conf  /usr/local/nginx/conf/nginx.conf \
