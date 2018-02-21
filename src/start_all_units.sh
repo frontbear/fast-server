@@ -13,10 +13,19 @@ if [ -z "$(ls -A /usr/local/mysql/datadir)" ]; then
 fi
 
 # mysql
-if [ ! -f /usr/local/mysql/log_error_file.log ]; then
-    touch /usr/local/mysql/log_error_file.log
-    chown -R user7:group7    /usr/local/mysql
+if [ ! -f /usr/local/mysql/logdir/error.log ]; then
+    touch /usr/local/mysql/logdir/error.log
 fi
+
+if [ ! -f /usr/local/mysql/logdir/general.log ]; then
+    touch /usr/local/mysql/logdir/general.log
+fi
+
+if [ ! -f /usr/local/mysql/logdir/slow.log ]; then
+    touch /usr/local/mysql/logdir/slow.log
+fi
+
+chown -R user7:group7    /usr/local/mysql
 
 /usr/local/mysql/support-files/mysql.server start
 sleep 3s
