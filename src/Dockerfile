@@ -46,8 +46,8 @@ RUN set -eux \
 \
 && mkdir -p /etc/my_init.d \
 && cd       /etc/my_init.d \
-&& wget ${REPO_BRANCH}/src/server_start.sh \
-&& chmod +x /etc/my_init.d/server_start.sh \
+&& wget ${REPO_BRANCH}/src/start_all_units.sh \
+&& chmod +x /etc/my_init.d/start_all_units.sh \
 \
 && cd /usr/local/src \
 \
