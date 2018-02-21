@@ -75,7 +75,7 @@ RUN set -eux             \
 && (make >/dev/null)                                                        \
 && (make PREFIX=/usr/local/redis install >/dev/null)                                     \
 
-&& mkdir /usr/local/redis/working_dir                                       \
+&& mkdir /usr/local/redis/datadir                                       \
 
 && cd /usr/local/src                                                        \
 && yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf     \
