@@ -129,7 +129,8 @@ RUN set -eux \
 && (make >/dev/null) \
 && (make install >/dev/null) \
 \
-&& mkdir /usr/local/nginx/vhosts \
+&& mkdir -p /usr/local/nginx/vhosts/cfg \
+&& mkdir -p /usr/local/nginx/vhosts/logs \
 \
 && cd /usr/local/src \
 && yes | cp ./nginx_nginx.conf  /usr/local/nginx/conf/nginx.conf \
