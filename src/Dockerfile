@@ -35,60 +35,60 @@ ADD ${REPO_BRANCH}/src/redis/conf/redis.conf \
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
-
+\
 && (apt-get -y update >/dev/null) \
 && (apt-get -y upgrade >/dev/null) \
-
+\
 && CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l` \
-
+\
 && groupadd group7 \
 && useradd -g group7 -M -d /usr/local/nginx user7 -s /sbin/nologin \
-
+\
 && mkdir -p /etc/my_init.d \
 && cd       /etc/my_init.d \
 && wget ${REPO_BRANCH}/src/server_start.sh \
 && chmod +x /etc/my_init.d/server_start.sh \
-
+\
 && cd /usr/local/src \
-
+\
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz \
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz \
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz \
 && (tar -zxf nginx-${NGINX_VERSION}.tar.gz >/dev/null) \
 && (tar -zxf pcre-${PCRE_VERSION}.tar.gz >/dev/null) \
 && (tar -zxf zlib-${ZLIB_VERSION}.tar.gz >/dev/null) \
-
+\
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz \
 && (tar -zxf php-${PHP_VERSION}.tar.gz >/dev/null) \
-
+\
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
 && (tar -zxf percona-server-${PERCONA_VERSION}.tar.gz >/dev/null) \
 && (tar -zxf boost_${BOOST_VERSION}.tar.gz >/dev/null) \
-
+\
 && wget -q https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
 && (tar -zxf redis-${REDIS_VERSION}.tar.gz >/dev/null) \
-
-
-
-
+\
+\
+\
+\
 && cd /usr/local/src/redis-${REDIS_VERSION} \
 && (make >/dev/null) \
 && (make PREFIX=/usr/local/redis install >/dev/null) \
-
+\
 && mkdir /usr/local/redis/datadir \
-
+\
 && cd /usr/local/src \
 && yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf \
-
+\
 && chown -R user7:group7                 /usr/local/redis \
 && /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf \
 && sleep  3s \
 && /usr/local/redis/bin/redis-cli       shutdown \
-
-
-
-
+\
+\
+\
+\
 && cd /usr/local/src/nginx-${NGINX_VERSION} \
 && (./configure --prefix=/usr/local/nginx \
 --user=user7 \
@@ -128,25 +128,25 @@ RUN set -eux \
 --with-stream_geoip_module=dynamic \
 --with-stream_ssl_preread_module \
 --with-ld-opt="-ljemalloc" >/dev/null) \
-
+\
 && (make >/dev/null) \
 && (make install >/dev/null) \
-
+\
 && mkdir /usr/local/nginx/vhosts \
-
+\
 && cd /usr/local/src \
 && yes | cp ./nginx_nginx.conf  /usr/local/nginx/conf/nginx.conf \
-
+\
 && chown -R user7:group7            /usr/local/nginx \
 && /usr/local/nginx/sbin/nginx -t \
 && /usr/local/nginx/sbin/nginx \
 && sleep  3s \
 && /usr/local/nginx/sbin/nginx -s stop \
-
-
-
-
-
+\
+\
+\
+\
+\
 && cd /usr/local/src/php-${PHP_VERSION} \
 && (./configure --prefix=/usr/local/php \
 --enable-fpm \
@@ -206,24 +206,24 @@ RUN set -eux \
 --with-xsl \
 --enable-opcache \
 --with-pear >/dev/null) \
-
+\
 && (make -j${CPU_NUM} >/dev/null) \
 && (make install >/dev/null) \
-
+\
 && cd /usr/local/src \
 && yes | cp ./php_php-fpm.conf /usr/local/php/etc/php-fpm.conf \
 && yes | cp ./php_www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && yes | cp ./php_php.ini      /usr/local/php/lib/php.ini \
-
+\
 && chown -R user7:group7        /usr/local/php \
 && /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
-
-
-
-
-
+\
+\
+\
+\
+\
 && cd /usr/local/src/percona-server-${PERCONA_VERSION} \
 && (cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DDEFAULT_CHARSET=utf8mb4 \
@@ -253,18 +253,18 @@ RUN set -eux \
 -DWITH_ROCKSDB=1 \
 -DWITH_TOKUDB=1 \
 -DWITH_EXTRA_CHARSETS=all >/dev/null) \
-
+\
 && (make -j${CPU_NUM} >/dev/null) \
 && (make install >/dev/null) \
-
+\
 && mkdir /usr/local/mysql/datadir \
 && mkdir /usr/local/mysql/tmpdir \
-
+\
 && chown -R user7:group7 /usr/local/mysql \
 && chown -R user7:group7 /etc/my.cnf \
-
+\
 && rm -rf                       /usr/local/mysql/mysql-test \
-
+\
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/src/*
