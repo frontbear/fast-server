@@ -19,9 +19,10 @@ RUN set -eux \
 && sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 && apt-get -y update            \
 && apt-get -y upgrade           \
-&& apt-get -y install cmake                           \
+&& apt-get -y install cmake     \
 bison                           \
 build-essential                 \
+libjemalloc-dev                 \
 libssl-dev                      \
 libcurl4-openssl-dev            \
 libedit-dev                     \
