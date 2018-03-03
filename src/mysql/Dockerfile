@@ -2,26 +2,30 @@ FROM phusion/baseimage:0.10.0
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
-ENV MYSQL_VERSION           5.7.21
 ENV PERCONA_VERSION         5.7.21-20
 ENV BOOST_VERSION           1_59_0
-ENV BOOST_NORMAL_VERSION    1.59.0
 
-ENV REPO_BRANCH https://github.com/frontbear/fast-server/raw/master
-
-ENV ASSETS_URL https://docker-assets.oss-cn-shanghai.aliyuncs.com/src
-
-ADD ${REPO_BRANCH}/src/mysql/conf/generated.my.cnf /etc/my.cnf
+COPY ./start_service.sh                        /etc/my_init.d/
+COPY ./conf/generated.my.cnf                   /etc/my.cnf
+COPY ./src/boost_1_59_0.tar.gz                 /usr/local/src/
+COPY ./src/percona-server-5.7.21-20.tar.gz     /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
+&& export DEBIAN_FRONTEND=noninteractive \
 && sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
+&& sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
+&& sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
+&& sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 && apt-get -y update            \
 && apt-get -y upgrade           \
 && apt-get -y install wget      \
 cmake                           \
+bison                           \
 build-essential                 \
 libssl-dev                      \
+libcurl4-openssl-dev            \
+libedit-dev                     \
 libeditline-dev                 \
 libevent-dev                    \
 liblz4-dev                      \
@@ -32,15 +36,10 @@ zlib1g-dev                      \
 && groupadd group7 \
 && useradd -g group7 -M -d /usr/local/mysql user7 -s /sbin/nologin \
 \
-&& mkdir -p /etc/my_init.d \
-&& cd       /etc/my_init.d \
-&& wget ${REPO_BRANCH}/src/mysql/start_service.sh \
 && chmod +x /etc/my_init.d/start_service.sh \
 \
 && cd /usr/local/src \
 \
-&& wget -q ${ASSETS_URL}/percona/percona-server-${PERCONA_VERSION}.tar.gz \
-&& wget -q ${ASSETS_URL}/boost/boost_${BOOST_VERSION}.tar.gz \
 && tar -zxf percona-server-${PERCONA_VERSION}.tar.gz \
 && tar -zxf boost_${BOOST_VERSION}.tar.gz \
 \
@@ -71,7 +70,7 @@ zlib1g-dev                      \
 -DWITH_PARTITION_STORAGE_ENGINE=1 \
 -DWITH_PERFSCHEMA_STORAGE_ENGINE=1 \
 -DWITH_ROCKSDB=1 \
--DWITH_TOKUDB=1 \
+-DWITH_TOKUDB=0 \
 -DWITH_EXTRA_CHARSETS=all \
 \
 && make -j${CPU_NUM} \
