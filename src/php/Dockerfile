@@ -22,6 +22,7 @@ RUN set -eux \
 && apt-get -y install build-essential \
 re2c                            \
 bison                           \
+libtool                         \
 libssl-dev                      \
 zlib1g-dev                      \
 libpcre3-dev                    \
