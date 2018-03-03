@@ -19,8 +19,7 @@ RUN set -eux \
 && sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 && apt-get -y update            \
 && apt-get -y upgrade           \
-&& apt-get -y install wget      \
-cmake                           \
+&& apt-get -y install cmake                           \
 bison                           \
 build-essential                 \
 libssl-dev                      \
