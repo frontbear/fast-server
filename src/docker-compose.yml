@@ -1,0 +1,47 @@
+version: "3"
+services:
+  php:
+    image: frontbear/fastphp:7.1.15.0
+    volumes:
+      - /app7/data7:/data7
+      - /app7/php/logdir:/usr/local/php/logdir
+      - /app7/nginx/vhosts:/app7/nginx/vhosts
+    ports:
+      - "9000:9000"
+    networks:
+      - phpnet
+    depends_on:
+      - redis
+
+  redis:
+    image: frontbear/fastredis:3.2.11.0
+    volumes:
+      - /app7/data7:/data7
+      - /app7/redis/datadir:/usr/local/redis/datadir
+      - /app7/redis/logdir:/usr/local/redis/logdir
+    ports:
+      - "3306:3306"
+    networks:
+      - redisnet
+
+  nginx:
+    image: frontbear/fastnginx:1.13.9.2
+    volumes:
+      - /app7/data7:/data7
+      - /app7/nginx/vhosts:/usr/local/nginx/vhosts
+      - /app7/nginx/vhosts/cfg:/usr/local/nginx/vhosts/cfg
+      - /app7/nginx/vhosts/logs:/usr/local/nginx/vhosts/logs
+      - /app7/nginx/vhosts/certbot:/usr/local/nginx/vhosts/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - nginxnet
+    depends_on:
+      - php
+      - redis
+
+networks:
+  phpnet:
+  redisnet:
+  nginxnet:
