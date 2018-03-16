@@ -1,11 +1,13 @@
 version: "3"
+
 services:
   php:
     image: frontbear/fastphp:7.1.15.0
     volumes:
+      - allvols:/vol7
       - /app7/data7:/data7
       - /app7/php/logdir:/usr/local/php/logdir
-      - /app7/nginx/vhosts:/app7/nginx/vhosts
+      - /app7/nginx/vhosts:/usr/local/nginx/vhosts
     ports:
       - "9000:9000"
     networks:
@@ -16,6 +18,7 @@ services:
   redis:
     image: frontbear/fastredis:3.2.11.0
     volumes:
+      - allvols:/vol7
       - /app7/data7:/data7
       - /app7/redis/datadir:/usr/local/redis/datadir
       - /app7/redis/logdir:/usr/local/redis/logdir
@@ -27,6 +30,7 @@ services:
   nginx:
     image: frontbear/fastnginx:1.13.9.2
     volumes:
+      - allvols:/vol7
       - /app7/data7:/data7
       - /app7/nginx/vhosts:/usr/local/nginx/vhosts
       - /app7/nginx/vhosts/cfg:/usr/local/nginx/vhosts/cfg
@@ -44,3 +48,7 @@ services:
 networks:
   allnets:
     driver: bridge
+
+volumes:
+  allvols:
+    driver: local
