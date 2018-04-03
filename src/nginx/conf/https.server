@@ -17,8 +17,8 @@ server {
 
     root                         /usr/local/nginx/vhosts/notfound;
 
-    ssl_certificate              /data7/certbot/example.com/fullchain.cer;
-    ssl_certificate_key          /data7/certbot/example.com/example.com.key;
+    ssl_certificate              /usr/local/nginx/vcerts/example.com/fullchain.cer;
+    ssl_certificate_key          /usr/local/nginx/vcerts/example.com/wildcard.key;
     ssl_session_timeout          10m;
     ssl_session_cache            shared:SSL:10m;
     ssl_session_tickets          off;
@@ -34,7 +34,7 @@ server {
     resolver                     223.5.5.5 223.6.6.6 119.29.29.29 180.76.76.76 valid=120s;
     resolver_timeout             5s;
 
-    return  301  https://www.example.com$request_uri;
+    return  301  https://www.$host$request_uri;
 }
 
 
@@ -44,8 +44,8 @@ server {
 
     root                         /usr/local/nginx/vhosts/example/web;
 
-    ssl_certificate              /data7/certbot/example.com/fullchain.cer;
-    ssl_certificate_key          /data7/certbot/example.com/example.com.key;
+    ssl_certificate              /usr/local/nginx/vcerts/example.com/fullchain.cer;
+    ssl_certificate_key          /usr/local/nginx/vcerts/example.com/wildcard.key;
     ssl_session_timeout          10m;
     ssl_session_cache            shared:SSL:10m;
     ssl_session_tickets          off;

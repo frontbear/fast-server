@@ -1,12 +1,12 @@
-FROM phusion/baseimage:0.10.0
+FROM phusion/baseimage:0.10.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
-ENV NGINX_VERSION           1.13.9
+ENV NGINX_VERSION           1.13.10
 
 COPY ./start_service.sh           /etc/my_init.d/
 COPY ./conf/nginx.conf            /usr/local/src/
-COPY ./src/nginx-1.13.9.tar.gz    /usr/local/src/
+COPY ./src/nginx-1.13.10.tar.gz    /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -70,14 +70,15 @@ libevent-dev                    \
 && make \
 && make install \
 \
-&& mkdir -p /usr/local/nginx/vhosts/cfg \
-&& mkdir -p /usr/local/nginx/vhosts/logs \
-&& mkdir -p /usr/local/nginx/vhosts/certbot \
+&& mkdir /usr/local/nginx/vhosts \
+&& mkdir /usr/local/nginx/vconfs \
+&& mkdir /usr/local/nginx/vlogs \
+&& mkdir /usr/local/nginx/vcerts \
 \
 && cd /usr/local/src \
 && yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf \
 \
-&& chown -R user7:group7            /usr/local/nginx \
+&& chown -R user7:group7 /usr/local/nginx \
 && /usr/local/nginx/sbin/nginx -t \
 && /usr/local/nginx/sbin/nginx \
 && sleep  3s \

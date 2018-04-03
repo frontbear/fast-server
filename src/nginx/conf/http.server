@@ -3,7 +3,7 @@ server {
     listen                       80;
     server_name                  www.example.com;
 
-    root                         /usr/local/nginx/vhosts/index_dir;
+    root                         /usr/local/nginx/vhosts/notfound;
 
     location / {
         if ($http_user_agent ~* (wget|crawler|FeedDemon|ApacheBench|UniversalFeedParser|CrawlDaddy|WinHttp|urllib|phpmyadmin|spiderman|python)) {
