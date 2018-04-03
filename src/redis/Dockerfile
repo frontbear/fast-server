@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.10.0
+FROM phusion/baseimage:0.10.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
@@ -37,10 +37,10 @@ libevent-dev                    \
 && mkdir /usr/local/redis/logdir \
 \
 && cd /usr/local/src \
-&& yes | cp ./redis.conf          /usr/local/redis/conf_file.conf \
+&& yes | cp ./redis.conf          /usr/local/redis/conffile.conf \
 \
 && chown -R user7:group7                /usr/local/redis \
-&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf \
+&& /usr/local/redis/bin/redis-server    /usr/local/redis/conffile.conf \
 && sleep  3s \
 && /usr/local/redis/bin/redis-cli       shutdown \
 \
