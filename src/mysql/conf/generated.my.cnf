@@ -1,9 +1,9 @@
-# Created At 2018-02-21 22:56:53
+# Created At 2018-04-03 22:07:24
 
 [mysqld]
 user                                 = user7
 basedir                              = /usr/local/mysql/
-bind-address                         = 127.0.0.1
+bind-address                         = 0.0.0.0
 binlog-cache-size                    = 1M
 binlog-format                        = MIXED
 character-set-server                 = utf8mb4
@@ -34,7 +34,7 @@ innodb-read-io-threads               = 8
 innodb-write-io-threads              = 4
 key-buffer-size                      = 16M
 local-infile                         = 1
-log-bin                              = /usr/local/mysql/log_bin_file
+log-bin                              = /usr/local/mysql/binlogfile
 log-error                            = /usr/local/mysql/logdir/error.log
 log-output                           = FILE
 log-queries-not-using-indexes        = 0
@@ -45,7 +45,7 @@ max-connect-errors                   = 100000
 max-connections                      = 512
 max-heap-table-size                  = 64M
 open-files-limit                     = 65535
-pid-file                             = /usr/local/mysql/pid_file.pid
+pid-file                             = /usr/local/mysql/pidfile.pid
 plugin-dir                           = /usr/local/mysql/lib/mysql/plugin/
 port                                 = 3306
 query-cache-type                     = 0
@@ -67,7 +67,7 @@ wait-timeout                         = 3600
 
 [mysql]
 auto-rehash                          = 0
-bind-address                         = 127.0.0.1
+bind-address                         = 0.0.0.0
 default-character-set                = utf8mb4
 local-infile                         = 1
 port                                 = 3306
@@ -79,7 +79,7 @@ max-allowed-packet                   = 16M
 open-files-limit                     = 65535
 
 [mysqldump]
-bind-address                         = 127.0.0.1
+bind-address                         = 0.0.0.0
 comments                             = 1
 default-character-set                = utf8mb4
 max-allowed-packet                   = 64M
@@ -88,7 +88,7 @@ quick                                = 1
 socket                               = /tmp/mysql.sock
 
 [mysqlimport]
-bind-address                         = 127.0.0.1
+bind-address                         = 0.0.0.0
 default-character-set                = utf8mb4
 port                                 = 3306
 socket                               = /tmp/mysql.sock
