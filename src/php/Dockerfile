@@ -1,14 +1,14 @@
-FROM phusion/baseimage:0.10.0
+FROM phusion/baseimage:0.10.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
-ENV PHP_VERSION           7.1.15
+ENV PHP_VERSION           7.1.16
 
 COPY ./start_service.sh         /etc/my_init.d/
 COPY ./conf/php.ini             /usr/local/src/
 COPY ./conf/php-fpm.conf        /usr/local/src/
 COPY ./conf/www.conf            /usr/local/src/
-COPY ./src/php-7.1.15.tar.gz    /usr/local/src/
+COPY ./src/php-7.1.16.tar.gz    /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -20,6 +20,7 @@ RUN set -eux \
 && apt-get -y update            \
 && apt-get -y upgrade           \
 && apt-get -y install build-essential \
+git                             \
 re2c                            \
 bison                           \
 libtool                         \
@@ -108,12 +109,9 @@ libevent-dev                    \
 && make -j${CPU_NUM} \
 && make install \
 \
-&& mkdir /usr/local/php/logdir \
-&& mkdir -p /usr/local/php/cfgdir/php-fpm.d \
-\
 && cd /usr/local/src \
 && yes | cp ./php-fpm.conf /usr/local/php/etc/php-fpm.conf \
-&& yes | cp ./www.conf     /usr/local/php/cfgdir/php-fpm.d/www.conf \
+&& yes | cp ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && yes | cp ./php.ini      /usr/local/php/lib/php.ini \
 \
 && chown -R user7:group7        /usr/local/php \
