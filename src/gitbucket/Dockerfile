@@ -16,7 +16,7 @@ RUN set -eux \
 && sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 && apt-get -y update            \
 && apt-get -y upgrade           \
-&& apt-get -y install openjdk-9-jre \
+&& apt-get -y install openjdk-8-jre \
 graphviz \
 \
 && mkdir /gitbucket \
