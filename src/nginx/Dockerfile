@@ -2,11 +2,11 @@ FROM phusion/baseimage:0.10.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
-ENV NGINX_VERSION           1.13.10
+ENV NGINX_VERSION           1.13.11
 
 COPY ./start_service.sh           /etc/my_init.d/
 COPY ./conf/nginx.conf            /usr/local/src/
-COPY ./src/nginx-1.13.10.tar.gz    /usr/local/src/
+COPY ./src/nginx-1.13.11.tar.gz    /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
