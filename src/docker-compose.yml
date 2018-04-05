@@ -1,54 +1,61 @@
 version: "3"
 
 services:
-  php:
-    image: frontbear/fastphp:7.1.15.0
-    volumes:
-      - allvols:/vol7
-      - /app7/data7:/data7
-      - /app7/php/logdir:/usr/local/php/logdir
-      - /app7/nginx/vhosts:/usr/local/nginx/vhosts
-    ports:
-      - "9000:9000"
-    networks:
-      - allnets
-    depends_on:
-      - redis
-
-  redis:
-    image: frontbear/fastredis:3.2.11.0
-    volumes:
-      - allvols:/vol7
-      - /app7/data7:/data7
-      - /app7/redis/datadir:/usr/local/redis/datadir
-      - /app7/redis/logdir:/usr/local/redis/logdir
-    ports:
-      - "6379:6379"
-    networks:
-      - allnets
-
   nginx:
-    image: frontbear/fastnginx:1.13.9.2
+    image: frontbear/fastnginx:1.13.11.0
     volumes:
-      - allvols:/vol7
-      - /app7/data7:/data7
-      - /app7/nginx/vhosts:/usr/local/nginx/vhosts
-      - /app7/nginx/vhosts/cfg:/usr/local/nginx/vhosts/cfg
-      - /app7/nginx/vhosts/logs:/usr/local/nginx/vhosts/logs
-      - /app7/nginx/vhosts/certbot:/usr/local/nginx/vhosts/certbot
+      - vhosts:/usr/local/nginx/vhosts
     ports:
       - "80:80"
       - "443:443"
     networks:
-      - allnets
+      - nginx
+      - php
+      - redis
+      - gitbucket
     depends_on:
       - php
       - redis
+      - gitbucket
+
+  php:
+    image: frontbear/fastphp:7.16.0
+    volumes:
+      - vhosts:/usr/local/nginx/vhosts
+    ports:
+      - "9000:9000"
+    networks:
+      - nginx
+      - php
+      - redis
+
+  redis:
+    image: frontbear/fastredis:3.2.11.1
+    ports:
+      - "6379:6379"
+    networks:
+      - redis
+
+  gitbucket:
+    image: frontbear/gitbucket:4.23.0.1
+    env_file:
+      - ./gitbucket.env
+    ports:
+      - "8080:8080"
+      - "29418:29418"
+    networks:
+      - gitbucket
 
 networks:
-  allnets:
+  nginx:
+    driver: bridge
+  php:
+    driver: bridge
+  redis:
+    driver: bridge
+  gitbucket:
     driver: bridge
 
 volumes:
-  allvols:
+  vhosts:
     driver: local
