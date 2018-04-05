@@ -43,9 +43,9 @@ server {
             allow all;
         }
 
-        limit_req                zone=one burst=50 nodelay;
+        limit_req                zone=lrza burst=50 nodelay;
 
-        proxy_pass                   gitbucket:8080;
+        proxy_pass                   http://gitbucket:8080/;
         proxy_set_header             Host              $host;
         proxy_set_header             X-Real-IP         $remote_addr;
         proxy_set_header             X-Forwarded-For   $proxy_add_x_forwarded_for;
@@ -58,7 +58,7 @@ server {
     }
 
     location /assets/ {
-        proxy_pass              gitbucket:8080/assets/;
+        proxy_pass              http://gitbucket:8080/assets/;
         proxy_cache             pcache;
         proxy_cache_key         $host$uri$is_args$args;
         proxy_cache_valid       200 301 302 1d;
