@@ -3,12 +3,14 @@ FROM phusion/baseimage:0.10.1
 MAINTAINER frontbear <frontbear@outlook.com>
 
 ENV PHP_VERSION           7.2.7
+ENV LIBSODIUM_VERSION     1.0.16
 
 COPY ./start_service.sh         /etc/my_init.d/
 COPY ./conf/php.ini             /usr/local/src/
 COPY ./conf/php-fpm.conf        /usr/local/src/
 COPY ./conf/www.conf            /usr/local/src/
 COPY ./src/php-7.2.7.tar.gz    /usr/local/src/
+COPY ./src/libsodium-1.0.16.tar.gz    /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -54,6 +56,12 @@ libevent-dev                    \
 && cd /usr/local/src \
 \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
+&& tar -zxf php-${LIBSODIUM_VERSION}.tar.gz \
+\
+&& cd /usr/local/src/libsodium-${LIBSODIUM_VERSION} \
+&& ./configure \
+&& make -j${CPU_NUM} \
+&& make install \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --prefix=/usr/local/php \
