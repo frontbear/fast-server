@@ -1,4 +1,4 @@
-# Created At 2018-04-03 22:07:24
+# Created At 2018-06-29 18:34:38
 
 [mysqld]
 user                                 = user7
@@ -18,21 +18,19 @@ explicit-defaults-for-timestamp      = 1
 general-log                          = 0
 general-log-file                     = /usr/local/mysql/logdir/general.log
 gtid-mode                            = OFF
-innodb-buffer-pool-size              = 768M
+innodb-buffer-pool-size              = 1024M
 innodb-data-file-path                = ibdata1:16M:autoextend
 innodb-disable-sort-file-cache       = 1
 innodb-file-per-table                = 1
 innodb-flush-log-at-trx-commit       = 1
 innodb-flush-method                  = O_DIRECT
-innodb-flush-neighbors               = 0
-innodb-io-capacity                   = 300
-innodb-lock-wait-timeout             = 90
-innodb-log-buffer-size               = 16M
-innodb-log-file-size                 = 64M
-innodb-log-files-in-group            = 3
+innodb-flush-neighbors               = 1
+innodb-io-capacity                   = 1000
+innodb-log-buffer-size               = 64M
+innodb-log-file-size                 = 128M
 innodb-read-io-threads               = 8
 innodb-write-io-threads              = 4
-key-buffer-size                      = 16M
+key-buffer-size                      = 64M
 local-infile                         = 1
 log-bin                              = /usr/local/mysql/binlogfile
 log-error                            = /usr/local/mysql/logdir/error.log
@@ -40,8 +38,8 @@ log-output                           = FILE
 log-queries-not-using-indexes        = 0
 log-timestamps                       = SYSTEM
 log-error-verbosity                  = 1
-max-allowed-packet                   = 16M
-max-connect-errors                   = 100000
+max-allowed-packet                   = 64M
+max-connect-errors                   = 200000
 max-connections                      = 512
 max-heap-table-size                  = 64M
 open-files-limit                     = 65535
@@ -58,7 +56,7 @@ socket                               = /tmp/mysql.sock
 sort-buffer-size                     = 1M
 sql-mode                             = ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO
 sync-binlog                          = 1
-table-open-cache                     = 4000
+table-open-cache                     = 2000
 table-open-cache-instances           = 16
 thread-cache-size                    = 18
 tmp-table-size                       = 64M
@@ -73,7 +71,7 @@ local-infile                         = 1
 port                                 = 3306
 socket                               = /tmp/mysql.sock
 safe-updates                         = 1
-max-allowed-packet                   = 16M
+max-allowed-packet                   = 64M
 
 [mysqld_safe]
 open-files-limit                     = 65535
