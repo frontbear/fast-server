@@ -2,13 +2,13 @@ FROM phusion/baseimage:0.10.1
 
 MAINTAINER frontbear <frontbear@outlook.com>
 
-ENV PERCONA_VERSION         5.7.21-20
+ENV PERCONA_VERSION         5.7.22-22
 ENV BOOST_VERSION           1_59_0
 
 COPY ./start_service.sh                        /etc/my_init.d/
 COPY ./conf/generated.my.cnf                   /etc/my.cnf
 COPY ./src/boost_1_59_0.tar.gz                 /usr/local/src/
-COPY ./src/percona-server-5.7.21-20.tar.gz     /usr/local/src/
+COPY ./src/percona-server-5.7.22-22.tar.gz     /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
