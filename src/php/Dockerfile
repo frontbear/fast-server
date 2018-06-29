@@ -56,7 +56,7 @@ libevent-dev                    \
 && cd /usr/local/src \
 \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
-&& tar -zxf php-${LIBSODIUM_VERSION}.tar.gz \
+&& tar -zxf libsodium-${LIBSODIUM_VERSION}.tar.gz \
 \
 && cd /usr/local/src/libsodium-${LIBSODIUM_VERSION} \
 && ./configure \
