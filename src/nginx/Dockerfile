@@ -24,6 +24,7 @@ libpcre3-dev                    \
 libgeoip-dev                    \
 libjemalloc-dev                 \
 libevent-dev                    \
+socat                           \
 \
 && groupadd group7 \
 && useradd -g group7 -M -d /usr/local/nginx user7 -s /sbin/nologin \
