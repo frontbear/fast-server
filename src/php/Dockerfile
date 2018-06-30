@@ -4,6 +4,7 @@ MAINTAINER frontbear <frontbear@outlook.com>
 
 ENV PHP_VERSION           7.2.7
 ENV LIBSODIUM_VERSION     1.0.16
+ENV COMPOSER_VERSION     1.6.5
 
 COPY ./start_service.sh         /etc/my_init.d/
 COPY ./conf/php.ini             /usr/local/src/
@@ -11,6 +12,7 @@ COPY ./conf/php-fpm.conf        /usr/local/src/
 COPY ./conf/www.conf            /usr/local/src/
 COPY ./src/php-7.2.7.tar.gz    /usr/local/src/
 COPY ./src/libsodium-1.0.16.tar.gz    /usr/local/src/
+COPY ./src/composer             /usr/local/bin/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -52,6 +54,7 @@ libevent-dev                    \
 && useradd -g group7 -M -d /usr/local/php user7 -s /sbin/nologin \
 \
 && chmod +x /etc/my_init.d/start_service.sh \
+&& chmod +x /usr/local/bin/composer \
 \
 && cd /usr/local/src \
 \
@@ -126,6 +129,10 @@ libevent-dev                    \
 && /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
+\
+&& echo '' >> ~/.bashrc
+&& echo 'export PATH="$PATH:/usr/local/php/bin"' >> ~/.bashrc
+&& source ~/.bashrc
 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \

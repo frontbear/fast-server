@@ -85,6 +85,10 @@ zlib1g-dev                      \
 \
 && rm -rf /usr/local/mysql/mysql-test \
 \
+&& echo '' >> ~/.bashrc
+&& echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc
+&& source ~/.bashrc
+\
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/src/*

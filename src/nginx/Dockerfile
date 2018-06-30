@@ -84,6 +84,10 @@ libevent-dev                    \
 && sleep  3s \
 && /usr/local/nginx/sbin/nginx -s stop \
 \
+&& echo '' >> ~/.bashrc
+&& echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc
+&& source ~/.bashrc
+\
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/src/*
